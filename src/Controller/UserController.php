@@ -11,7 +11,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
+#[IsGranted('ROLE_ADMIN', message: 'Seuls les administrateurs peuvent accéder aux pages de gestion des utilisateurs.')]
 class UserController extends AbstractController
 {
     #[Route('/users', name: 'user_list')]
@@ -52,7 +54,6 @@ class UserController extends AbstractController
     #[Route('/users/{id}/edit', name: 'user_edit')]
     public function editAction(User $user, Request $request, UserPasswordHasherInterface $passwordHasher, EntityManagerInterface $em): Response
     {
-        // if ($this->denyAccessUnlessGranted('ROLE_ADMIN')){
         $form = $this->createForm(UserType::class, $user);
 
         $form->handleRequest($request);
@@ -70,10 +71,5 @@ class UserController extends AbstractController
         }
 
         return $this->render('user/edit.html.twig', ['form' => $form->createView(), 'user' => $user]);
-//     }        else
-//     {
-//        $this->addFlash('error', sprintf("Seuls les admins ont accès à cette page."));
-//        return $this->redirectToRoute('user_list');
-//    }
 }
 }
