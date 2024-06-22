@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -55,22 +56,33 @@ class UserType extends AbstractType
             ])
 
             ->add('email', EmailType::class, array('label' => 'Adresse email', 'attr' => array('class' => 'form-control','style' => 'margin:5px')))
-            ->add('role', ChoiceType::class, [
-                'label' => "Rôle",
-                'attr' => array('class' => 'form-control','style' => 'margin:5px'),
-                'choices'  => [
-                    'User' => 'ROLE_USER',
-                    'Admin' => 'ROLE_ADMIN',
-                ]])
+            ->add(
+                'roles',
+                ChoiceType::class,
+                [
+                    'label' => 'Rôle',
+                    'choices' => ['Utilisateur' => 'ROLE_USER', 'Administrateur' => 'ROLE_ADMIN'],
+                    'required' => true,
+                    'multiple' => false,
+                    'expanded' => false,
+                ]
+            )
                 ->add('save', SubmitType::class, array('label' => 'Soumettre', 'attr' => array('class' => 'btn btn-primary','style' => 'margin:5px')))
         ;
+        $builder->get('roles')->addModelTransformer(new CallbackTransformer(
+            function ($roles) {
+                return ($roles[0] ?? null);
+            },
+            function ($roles) {
+                return [$roles];
+            }));
     }
 
-    // public function configureOptions(OptionsResolver $resolver): void
-    // {
-    //     $resolver->setDefaults([
-    //         'data_class' => User::class,
-    //     ]);
-    // }
+    public function configureOptions(OptionsResolver $resolver): void
+    {
+        $resolver->setDefaults([
+            'data_class' => User::class,
+        ]);
+    }
 
 }
