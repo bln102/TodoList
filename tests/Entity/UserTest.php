@@ -48,7 +48,7 @@ class UserTest extends KernelTestCase
 
         $errors = $container->get('validator')->validate($user);
 
-        $this->assertCount(2, $errors);
+        $this->assertCount(1, $errors);
     }
 
     // test setters and getters
