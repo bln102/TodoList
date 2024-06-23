@@ -1,0 +1,12 @@
+{# templates/bundles/TwigBundle/Exception/error404.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Accès refusé !</h1>
+
+    <p>
+        Seuls les utilisateurs ayant le rôle administrateur peuvent accéder aux pages de gestion des utilisateurs
+       
+ <a href="{{ path('homepage') }}">Retourner à la page d'accueil</a>.
+    </p>
+{% endblock %}
