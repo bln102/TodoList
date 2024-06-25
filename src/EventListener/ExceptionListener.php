@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class ExceptionListener
 {
@@ -25,12 +26,15 @@ class ExceptionListener
     public function __invoke(ExceptionEvent $event): void
     {
         //  If not a HttpNotFoundException ignore
-         if (!$event->getThrowable() instanceof NotFoundHttpException) {
-            return;
+         if (!$event->getThrowable() instanceof AccessDeniedException) {
+            
+            $response = new RedirectResponse($this->router->generate('error_role'));
+        } else {
+        // Create redirect response with url for the home page
+            $response = new RedirectResponse($this->router->generate('error_404'));
         }
 
-        // Create redirect response with url for the home page
-        $response = new RedirectResponse($this->router->generate('error_404'));
+
 
         // Set the response to be processed
         $event->setResponse($response);
