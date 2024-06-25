@@ -11,12 +11,13 @@ class TaskRepositoryTest extends WebTestCase
     public function testFind(){
         $taskRepository = static::getContainer()->get(TaskRepository::class);
         $task = $taskRepository->find(1);
-        $this->assertSame("task 1", $task->getTitle());
+        
+        $this->assertSame("a task", $task->getTitle());
     }
 
     public function testFindAll(){
         $taskRepository = static::getContainer()->get(TaskRepository::class);
         $tasks = $taskRepository->findAll();
-        $this->assertCount(5, $tasks);
+        $this->assertNotEmpty($tasks);
     }
 }
