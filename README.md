@@ -1,7 +1,7 @@
 # ToDo & Co
 
 ## Description
-ToDo & Co est est une application permettant de gérer ses tâches quotidiennes. L’entreprise vient tout juste d’être montée, et l’application a dû être développée à toute vitesse pour permettre de montrer à de potentiels investisseurs que le concept est viable (on parle de Minimum Viable Product ou MVP).
+ToDo & Co est est une application permettant de gérer ses tâches quotidiennes.
 
 ## Technologie
 
@@ -14,7 +14,7 @@ Le framework symfony est utilisé pour la creation de ce projet
 
 ## Installation
 
-Suivez ces étapes pour démarrer le projet :
+Suivez ces étapes pour lancer le projet :
 
 **Cloner le dépôt**
 
@@ -59,7 +59,7 @@ symfony server:start --port=8085
 L'application est disponible à l'adresse `https://127.0.0.1:8085`.
 
 ## Tester
-Pour test l'application, il faut créer un fichier `.env.test.local` avec la même URL de la base de données
+Pour tester l'application, il faut créer un fichier `.env.test.local` avec la même URL de la base de données
 
 Il faut créer la base de données avec des données de test
 ```sh
@@ -68,7 +68,7 @@ symfony console doctrine:schema:update --env=test --force
 php bin/console doctrine:fixtures:load --env=test
 ```
 
-On peut effectuer des tests et produire un rapport de couverture avec phpunit:
+On peut effectuer les tests et produire un rapport de couverture avec phpunit:
 ```sh
 php bin/phpunit
 php bin/phpunit --coverage-html html 
