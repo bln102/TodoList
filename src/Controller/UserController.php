@@ -36,7 +36,7 @@ class UserController extends AbstractController
 
             if ($form->isSubmitted() && $form->isValid()) {
                 if($form->get('password')->getData() != $form->get('passwordConfirm')->getData()) {
-                    $this->addFlash('success', 'les mots de passe ne correspondent pas');
+                    $this->addFlash('error', 'les mots de passe ne correspondent pas');
                     return $this->redirectToRoute('user_create');
                 }
 
