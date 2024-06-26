@@ -24,11 +24,6 @@ class ExceptionListener
 
     public function __invoke(ExceptionEvent $event): void
     {
-        //  If not a HttpNotFoundException ignore
-         if (!$event->getThrowable() instanceof NotFoundHttpException) {
-            return;
-        }
-
         // Create redirect response with url for the home page
         $response = new RedirectResponse($this->router->generate('error_404'));
 
