@@ -1,7 +1,7 @@
 # ToDo & Co
 
 ## Description
-ToDo & Co est est une application permettant de gérer ses tâches quotidiennes.
+ToDo & Co est une application permettant de gérer ses tâches quotidiennes.
 
 ## Technologie
 
@@ -59,7 +59,7 @@ symfony server:start --port=8085
 L'application est disponible à l'adresse `https://127.0.0.1:8085`.
 
 ## Tester
-Pour tester l'application, il faut créer un fichier `.env.test.local` avec la même URL de la base de données
+Pour tester l'application, il faut créer un fichier `.env.test.local` avec la même URL de la base de données.
 
 Il faut créer la base de données avec des données de test
 ```sh
@@ -73,3 +73,21 @@ On peut effectuer les tests et produire un rapport de couverture avec phpunit:
 php bin/phpunit
 php bin/phpunit --coverage-html html 
 ```
+
+## Modifier le projet
+Pour modifier l'application, il faut d'abord modifier les dossiers entity (entité) et controller (Contrôleur).
+
+**Les entités :**
+Pour ajouter une nouvelle entité ou modifier une entité existante :
+```sh
+php bin\console make:entity
+php bin\console make:entity Task
+```
+Ensuite, vous avez la possibilité de modifier le fichier de l'entité ou son repository pour affiner vos critères. Enfin, vous devrez migrer les données vers la base de données.
+
+**Les contrôleurs :**
+Pour ajouter une nouvelle entité ou modifier un contrôleur existant :
+```sh
+php bin\console make:controller
+```
+Ensuite, vous avez la possibilité de modifier le fichier du contrôleur afin d'ajouter de nouvelles fonctionnalités, et les templates peuvent être adaptés pour répondre à vos besoins.
