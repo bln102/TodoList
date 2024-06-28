@@ -16,7 +16,17 @@ class TaskController extends AbstractController
     #[Route('/tasks', name: 'task_list')]
     public function listAction(TaskRepository $taskRepository)
     {
-        return $this->render('task/list.html.twig', ['tasks' => $taskRepository->findAll()]);
+        return $this->render('task/list_todo.html.twig', ['tasks' => $taskRepository->findBy(
+            ['isDone' => false],
+        )]);
+    }
+
+    #[Route('/tasks/done', name: 'task_done')]
+    public function listDoneAction(TaskRepository $taskRepository)
+    {
+        return $this->render('task/list_done.html.twig', ['tasks' => $taskRepository->findBy(
+            ['isDone' => true],
+        )]);
     }
 
     #[Route('/tasks/create', name: 'task_create')]
@@ -69,9 +79,14 @@ class TaskController extends AbstractController
         $task->toggle(!$task->isDone());
         $em->flush();
 
-        $this->addFlash('success', sprintf('La tâche %s a bien été marquée comme faite.', $task->getTitle()));
 
-        return $this->redirectToRoute('task_list');
+        if(!$task->isDone()){
+            $this->addFlash('success', sprintf('La tâche %s a bien été marquée comme non terminée.', $task->getTitle()));
+            return $this->redirectToRoute('task_done');
+        } else {
+            $this->addFlash('success', sprintf('La tâche %s a bien été marquée comme faite.', $task->getTitle()));
+            return $this->redirectToRoute('task_list');
+        }
     }
 
     #[Route('/tasks/{id}/delete', name: 'task_delete')]
